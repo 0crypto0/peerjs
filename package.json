@@ -46,7 +46,6 @@
     "jsdom-global": "^3.0.2",
     "mocha": "^6.2.0",
     "mock-socket": "8.0.5",
-    "parcel-bundler": "^1.12.4",
     "standard": "^14.1.0",
     "ts-node": "^8.3.0",
     "typescript": "^3.7.4"
@@ -58,7 +57,8 @@
     "opencollective": "^1.0.3",
     "opencollective-postinstall": "^2.0.0",
     "peerjs-js-binarypack": "1.0.1",
-    "webrtc-adapter": "^7.3.0"
+    "webrtc-adapter": "^7.3.0",
+    "parcel-bundler": "^1.12.4"
   },
   "collective": {
     "type": "opencollective",
