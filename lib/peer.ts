@@ -218,6 +218,9 @@ export class Peer extends EventEmitter {
     const peerId = message.src;
 
     switch (type) {
+      case ServerMessageType.DestroyPeer: // kill connection to the server.
+        this.emit(PeerEventType.DestroyPeer, this.id);
+        break;
       case ServerMessageType.Open: // The connection to the server is open.
         this._lastServerId = this.id;
         this._open = true;
