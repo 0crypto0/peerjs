@@ -7186,6 +7186,7 @@ var PeerEventType;
   PeerEventType["Call"] = "call";
   PeerEventType["Disconnected"] = "disconnected";
   PeerEventType["Error"] = "error";
+  PeerEventType["DestroyPeer"] = "kill_connection";
 })(PeerEventType = exports.PeerEventType || (exports.PeerEventType = {}));
 
 var PeerErrorType;
@@ -7234,7 +7235,8 @@ var ServerMessageType;
   ServerMessageType["IdTaken"] = "ID-TAKEN";
   ServerMessageType["InvalidKey"] = "INVALID-KEY";
   ServerMessageType["Leave"] = "LEAVE";
-  ServerMessageType["Expire"] = "EXPIRE"; // The offer sent to a peer has expired without response.
+  ServerMessageType["Expire"] = "EXPIRE";
+  ServerMessageType["DestroyPeer"] = "DESTROYPEER";
 })(ServerMessageType = exports.ServerMessageType || (exports.ServerMessageType = {}));
 },{}],"wJlv":[function(require,module,exports) {
 "use strict";
@@ -7804,6 +7806,11 @@ function () {
 
         case "disconnected":
           logger_1.default.log("iceConnectionState changed to disconnected on the connection with " + peerId);
+
+          _this.connection.emit(enums_1.ConnectionEventType.Error, new Error("Connection to " + peerId + " disconnected.")); // this.connection.close();
+
+
+          console.warn("Connection to " + peerId + " disconnected.");
           break;
 
         case "completed":
@@ -9663,6 +9670,11 @@ function (_super) {
     var peerId = message.src;
 
     switch (type) {
+      case enums_1.ServerMessageType.DestroyPeer:
+        // kill connection to the server.
+        this.emit(enums_1.PeerEventType.DestroyPeer, this.id);
+        break;
+
       case enums_1.ServerMessageType.Open:
         // The connection to the server is open.
         this._lastServerId = this.id;
