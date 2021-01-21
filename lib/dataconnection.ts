@@ -18,7 +18,7 @@ import { DataConnection as IDataConnection } from '../index';
  */
 export class DataConnection extends BaseConnection implements IDataConnection {
   private static readonly ID_PREFIX = "dc_";
-  private static readonly MAX_BUFFERED_AMOUNT = 8 * 1024 * 1024;
+  private static readonly MAX_BUFFERED_AMOUNT = 16 * 1024 * 1024;
 
   private _negotiator: Negotiator;
   readonly label: string;
